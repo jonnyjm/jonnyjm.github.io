@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Special Message ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background-color: #f8c8dc;
+      font-family: 'Georgia', serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden; /* Prevents scrollbars if the button moves near the edge */
+    }
+
+    .container {
+      padding: 40px;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      margin: 20px;
+      z-index: 1;
+    }
+
+    p {
+      color: #5d5d5d;
+      font-size: 1.25rem;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      height: 60px; /* Gives the buttons a consistent home base */
+    }
+
+    .celebration-gif {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-top: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    button {
+      padding: 15px 45px;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    #yesBtn {
+      background-color: #ff69b4;
+      color: white;
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+      z-index: 2;
+    }
+
+    #noBtn {
+      background-color: white;
+      color: #ff69b4;
+      transition: all 0.2s ease-out; /* This makes the movement "controlled" and smooth */
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <p>
+      CONGRATS ON PASSING THE TEST MY HONEY. I know things haven't been the way they've always been this past year, with new jobs, new schedules, and more responsibilities. However, the one thing that hasn't changed is just how bottomless the love I have for you is, how happy you make me, and how happy I am at the fact that you're my partner for life. Thank you for everything my love, and I just want to ask you if you'd please be my valentine's ? I ask on one humble knee
+    </p>
+
+    <div class="btn-container">
+      <button id="yesBtn" onclick="celebrate()">YES</button>
+      <button id="noBtn">NO</button>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+
+    function moveButton() {
+      // Get the button's dimensions
+      const btnWidth = noBtn.offsetWidth;
+      const btnHeight = noBtn.offsetHeight;
+
+      // Calculate the available space in the window
+      // We subtract the button size to keep it fully on screen
+      const maxX = window.innerWidth - btnWidth - 20; 
+      const maxY = window.innerHeight - btnHeight - 20;
+
+      // Generate random coordinates
+      const newX = Math.floor(Math.random() * maxX);
+      const newY = Math.floor(Math.random() * maxY);
+
+      // Apply the new position
+      noBtn.style.position = 'fixed';
+      noBtn.style.left = newX + 'px';
+      noBtn.style.top = newY + 'px';
+    }
+
+    // Move the button when the mouse gets close
+    noBtn.addEventListener('mouseover', moveButton);
+    
+    // Also move on touch (for mobile)
+    noBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      moveButton();
+    });
+
+    function celebrate() {
+      // Change the message once they say yes
+      document.querySelector('.container').innerHTML = `
+        <h1 style="color: white; font-size: 3rem;">OH YES !</h1>
+        <p style="font-size: 1.5rem;">Can't wait to show you what I've got planned for us my baby</p>
+        <img src="smile.gif" alt="Smile" class="celebration-gif" id="smileGif">
+      `;
+    }
+  </script>
+</body>
+</html>

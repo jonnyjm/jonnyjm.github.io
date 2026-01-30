@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Booger Questioning Time</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background-color: #f8c8dc;
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 30px;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .title {
+      color: white;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .question-block {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 15px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+    }
+
+    .hint {
+      font-size: 14px;
+      color: #721c24; /* Darker red for hints */
+      font-weight: bold;
+      display: none;
+    }
+
+    .hint.show {
+      display: block;
+    }
+
+    button {
+      padding: 8px 20px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .individual-check {
+      background-color: white;
+      color: #f8c8dc;
+      font-weight: bold;
+    }
+
+    .individual-check.correct {
+      background-color: #90ee90; /* light green */
+      color: white;
+      cursor: default;
+    }
+
+    .next-btn {
+      background-color: #ff69b4;
+      color: white;
+      font-size: 20px;
+      padding: 15px 40px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.5s ease;
+      pointer-events: none;
+      margin-top: 20px;
+    }
+
+    .next-btn.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="title">Answer all questions to the BEST of your ability 😈</div>
+
+    <div class="question-block">
+      <input id="q1" placeholder="1. What is my favorite color?" />
+      <div class="hint" id="h1">Hint: What I represent 🫡</div>
+      <button id="btn1" class="individual-check" onclick="checkOne('q1', 'blue', 'h1', 'btn1')">Check</button>
+    </div>
+
+    <div class="question-block">
+      <input id="q2" placeholder="2. what song did we originally bond over and shared together?" />
+      <div class="hint" id="h2">Hint: It rhymes with NINO</div>
+      <button id="btn2" class="individual-check" onclick="checkOne('q2', 'carino', 'h2', 'btn2')">Check</button>
+    </div>
+
+    <div class="question-block">
+      <input id="q3" placeholder="3. Who farts the most? Jane or Jonny" />
+      <div class="hint" id="h3">Hint: It's definitely you...</div>
+      <button id="btn3" class="individual-check" onclick="checkOne('q3', 'jane', 'h3', 'btn3')">Check</button>
+    </div>
+
+    <div class="question-block">
+      <input id="q4" placeholder="4. My favorite thing about you?" />
+      <div class="hint" id="h4">Hint: You silly goose its obviusly EVERYTHING</div>
+      <button id="btn4" class="individual-check" onclick="checkOne('q4', 'everything', 'h4', 'btn4')">Check</button>
+    </div>
+
+    <div class="question-block">
+      <input id="q5" placeholder="5. Who loves who more? Jane or Jonny" />
+      <div class="hint" id="h5">Hint: BABY ITS ME DUH</div>
+      <button id="btn5" class="individual-check" onclick="checkOne('q5', 'jonny', 'h5', 'btn5')">Check</button>
+    </div>
+
+    <div class="question-block">
+      <input id="q6" placeholder="6. Will you be with me forever?" />
+      <div class="hint" id="h6">Hint: Girl if you put anything other than yes IMA GO GET YA</div>
+      <button id="btn6" class="individual-check" onclick="checkOne('q6', 'yes', 'h6', 'btn6')">Check</button>
+    </div>
+
+    <button id="nextBtn" class="next-btn" onclick="goNext()">CONGRATS MY LOVE YOU PASSED THE QUIZ... NOW FOR THE LONG AWAITED QUESTION... btw press this button I know you get a little confused</button>
+  </div>
+
+  <script>
+    const status = {
+      q1: false, q2: false, q3: false, q4: false, q5: false, q6: false
+    };
+
+    const attempts = {
+      q1: 0, q2: 0, q3: 0, q4: 0, q5: 0, q6: 0
+    };
+
+    function checkOne(inputId, correctAns, hintId, btnId) {
+      const val = document.getElementById(inputId).value.trim().toLowerCase();
+      const hint = document.getElementById(hintId);
+      const btn = document.getElementById(btnId);
+
+      if (val === correctAns) {
+        status[inputId] = true;
+        hint.classList.remove("show");
+        btn.textContent = "Correct! ✨";
+        btn.classList.add("correct");
+        btn.disabled = true; // Disable so they can't change it
+        document.getElementById(inputId).disabled = true;
+      } else {
+        attempts[inputId]++;
+        if (attempts[inputId] >= 2) {
+          hint.classList.add("show");
+        }
+        btn.textContent = "Try Again?";
+      }
+
+      checkFinalStatus();
+    }
+
+    function checkFinalStatus() {
+      // If every key in the status object is true, show the final button
+      const allDone = Object.values(status).every(val => val === true);
+      if (allDone) {
+        document.getElementById("nextBtn").classList.add("show");
+      }
+    }
+
+    function goNext() {
+      window.location.href = "nextpage.html";
+    }
+  </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Valentine's Day Survey</title>
+  <title>START</title>
   <style>
     body {
       margin: 0;
@@ -28,6 +28,20 @@
 
     .title {
       color: white;
+    }
+
+    .next-button {
+      background-color: white;
+      color: #f8c8dc;
+      padding: 12px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+
+    .next-button:hover {
+      transform: scale(1.05);
     }
 
     .survey-form {
@@ -85,70 +99,12 @@
 </head>
 <body>
   <div class="container">
-    <h1 class="title">
-      Thank you for being the best year of my life my love, just need you to answer a few questions for me
-    </h1>
+  <h1 class="title">I hope you're ready for a quiz show 🎉</h1>
+  
 
-    <form class="survey-form" id="surveyForm">
-      <!-- First two questions -->
-      <div class="question-group">
-        <label>
-          1. What size lingerie should I get you? Bra size ? 
-          <input type="text" name="ideal_valentines" required />
-        </label>
+  <img src="dancing-cat.gif" alt="Quiz Show GIF" class="valentine-image" />
+  <h2 class="title">I have a very special question to ask you once you pass... IF you pass MUAHAHAHA</h2>
+  <a href="page3.html" class="next-button">Next</a>
 
-        <label>
-          2. What color lingerie would you like ? Or should I decide and make it exciting ? 
-          <input type="text" name="favorite_thing" required />
-        </label>
-      </div>
-
-      <!-- GIF -->
-      <img src="eyebrows-raised-smile.gif" alt="Valentine GIF" class="valentine-image" />
-
-      <!-- Last question -->
-      <div class="question-group">
-        <label>
-          3.  Now being serious, what was one thing you wish we had a chance to do in our year together ? Or a date you're looking forward to one day having 💕 
-          <textarea name="special_message" rows="4" required></textarea>
-        </label>
-      </div>
-
-      <button type="submit" class="next-button">Send My Answers 💌</button>
-    </form>
-
-    <script>
-      document.getElementById("surveyForm").addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        const formData = new FormData(this);
-
-        const textContent = `Valentine's Day Answers 💕
-
-` +
-          `Ideal Valentine’s Day:
-${formData.get("ideal_valentines")}
-
-` +
-          `Favorite Thing About Us:
-${formData.get("favorite_thing")}
-
-` +
-          `Special Message:
-${formData.get("special_message")}
-`;
-
-        const blob = new Blob([textContent], { type: "text/plain" });
-        const url = URL.createObjectURL(blob);
-
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "booger_answers.txt";
-        a.click();
-
-        URL.revokeObjectURL(url);
-      });
-    </script>
-  </div>
 </body>
 </html>
